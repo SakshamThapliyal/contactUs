@@ -1,0 +1,162 @@
+========================================
+FULL STACK PROJECT RUNNING GUIDE
+(Client + Server + PostgreSQL)
+========================================
+
+
+----------------------------------------
+1. PROJECT STRUCTURE
+----------------------------------------
+
+project-root/
+│
+├── client/    -> Frontend (HTML, CSS, JS)
+│       index.html
+│       style.css
+│       script.js
+│
+└── server/    -> Backend (Node.js + Express)
+        app.js
+        package.json
+        node_modules/
+
+
+client folder:
+- Contains UI and user interaction code.
+
+server folder:
+- Contains backend logic and database connection.
+
+
+----------------------------------------
+2. START DATABASE (POSTGRESQL)
+----------------------------------------
+
+1. Open pgAdmin.
+2. Connect to PostgreSQL server.
+3. Make sure database exists.
+4. Make sure table exists:
+
+contact_form table:
+
+    id
+    name
+    email
+    mobile
+    message
+    created_at
+
+
+----------------------------------------
+3. RUN BACKEND SERVER
+----------------------------------------
+
+Backend must run BEFORE frontend.
+
+Open terminal.
+
+Go to server folder:
+
+    cd project-root/server
+
+Start server:
+
+    nodemon app.js
+
+(or)
+
+    node app.js
+
+Expected output:
+
+    Server is running at http://localhost:3000
+    Database connected
+
+
+----------------------------------------
+4. RUN FRONTEND (CLIENT)
+----------------------------------------
+
+Open index.html:
+
+Option 1:
+    Double click index.html
+
+Option 2:
+    Use VS Code Live Server
+
+
+----------------------------------------
+5. SUBMIT FORM
+----------------------------------------
+
+Fill form fields:
+
+    Name
+    Email
+    Mobile
+    Message
+
+Click:
+
+    Send
+
+
+Internal flow:
+
+    Frontend JS (fetch)
+            ↓
+    POST request sent
+            ↓
+    Express backend receives
+            ↓
+    Data inserted into PostgreSQL
+            ↓
+    Success response returned
+
+
+----------------------------------------
+6. VERIFY DATA IN DATABASE
+----------------------------------------
+
+Open pgAdmin.
+
+Open Query Tool.
+
+Run:
+
+    SELECT * FROM contact_form;
+
+Check if new row added.
+
+
+----------------------------------------
+7. TROUBLESHOOTING CHECKLIST
+----------------------------------------
+
+- Backend running?
+- Correct database port?
+- CORS middleware added?
+- express.json middleware added?
+- Input name attributes correct?
+- Network tab shows POST request?
+
+
+----------------------------------------
+8. QUICK MEMORY FLOW
+----------------------------------------
+
+Start Database
+        ↓
+Run Backend (nodemon app.js)
+        ↓
+Open Frontend (index.html)
+        ↓
+Fill Form + Submit
+        ↓
+Check Database (SELECT *)
+
+
+========================================
+END OF GUIDE
+========================================

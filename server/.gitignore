@@ -1,0 +1,15 @@
+# Node modules (never push)
+node_modules/
+
+# Environment variables (important for security)
+.env
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code settings (optional)
+.vscode/
