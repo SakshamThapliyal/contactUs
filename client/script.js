@@ -15,7 +15,7 @@ form.addEventListener("submit", async function (e) {
 
   try {
 
-    const response = await fetch("https://contactus-8ktp.onrender.com//submit", {
+    const response = await fetch("https://contactus-8ktp.onrender.com/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
