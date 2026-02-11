@@ -1,29 +1,21 @@
 import express from "express";
-import pg from "pg";
 import cors from "cors";
 import dotenv from "dotenv";
+import { createClient } from "@supabase/supabase-js";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// database connection
-const db = new pg.Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-db.connect()
-.then(() => console.log("Database connected"))
-.catch(err => console.log(err));
+// create supabase client
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
 // POST endpoint
 app.post("/submit", async (req, res) => {
@@ -32,12 +24,13 @@ app.post("/submit", async (req, res) => {
 
     const { name, email, mobile, message } = req.body;
 
-    const query = `
-      INSERT INTO contact_form (name, email, mobile, message)
-      VALUES ($1, $2, $3, $4)
-    `;
+    const { data, error } = await supabase
+      .from("contact_form")
+      .insert([
+        { name, email, mobile, message }
+      ]);
 
-    await db.query(query, [name, email, mobile, message]);
+    if (error) throw error;
 
     res.send("Form submitted successfully ✅");
 
